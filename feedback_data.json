@@ -6,8 +6,8 @@
       "Hebat! Pertahankan energi baik ini. ✨",
       "Syukurlah, sepertinya harimu menyenangkan.",
       "Keren! Mood yang baik adalah awal yang bagus.",
-      "Wah, keren! Harimu lancar ya.", // <- Bahasa lisan
-      "Asik, semoga hari-harimu terus seperti ini!" // <- Bahasa lisan
+      "Wah, keren! Harimu lancar ya.",
+      "Asik, semoga hari-harimu terus seperti ini!"
     ],
     "netral": [
       "Oke, hari yang cukup standar ya. Itu tidak apa-apa. 🙂",
@@ -22,11 +22,11 @@
       "Mengirim pelukan virtual untukmu. Semoga besok lebih baik.",
       "Tarik napas dulu. Hari buruk bukan berarti kamu buruk.",
       "Sedih mendengarnya. Mari kita lihat apa yang bisa dipelajari.",
-      "Yah, kadang ada aja hal yang ganggu...", // <- Bahasa lisan
-      "Nggak apa-apa kok merasa gini sesekali." // <- Bahasa lisan
+      "Yah, kadang ada aja hal yang ganggu...",
+      "Nggak apa-apa kok merasa gini sesekali."
     ]
   },
-  "activityComments": [ // Tetap ada, tapi mungkin akan diskip kadang-kadang oleh JS
+  "activityComments": [
     "Melakukan beberapa kegiatan hari ini menunjukkan usahamu.",
     "Aktivitasmu hari ini terdengar cukup beragam.",
     "Terima kasih sudah berbagi tentang kegiatanmu.",
@@ -34,7 +34,7 @@
     "Setiap aktivitas, besar atau kecil, adalah bagian dari perjalananmu."
   ],
   "distractionComments": {
-    "withDistraction": [ // Tetap ada, tapi mungkin akan diskip kadang-kadang oleh JS
+    "withDistraction": [
       "Tentang \"{distractions}\", memang kadang ada saja gangguan tak terduga. Itu manusiawi.",
       "Menghadapi \"{distractions}\" pasti tidak mudah. Kamu sudah berusaha.",
       "Gangguan seperti \"{distractions}\" bisa jadi pengingat untuk lebih fleksibel atau sabar. Ambil hikmahnya ya.",
@@ -47,14 +47,14 @@
       "Fokus yang baik tanpa banyak distraksi itu bagus!"
     ]
   },
-  "prideComments": [ // Menggunakan saran Anda + beberapa variasi
+  "prideComments": [
     "\"{pride}\" — hebat banget!",
     "Keren! Kamu bangga akan \"{pride}\" ya?",
     "Salut buat \"{pride}\".",
     "\"{pride}\" itu layak dirayakan!",
     "Wah, mantap untuk \"{pride}\"!",
     "Bagus banget: \"{pride}\".",
-    "Itu bukti kamu terus bertumbuh: \"{pride}\"." // Contoh pemecahan kalimat
+    "Itu bukti kamu terus bertumbuh: \"{pride}\"."
   ],
   "closings": {
     "baik": [
@@ -63,7 +63,7 @@
       "Hari yang baik adalah berkah. Nikmati dan syukuri.",
       "Pertahankan momentum positif ini!",
       "Semoga besok harimu secerah hari ini!",
-      "Sip, lanjutkan hal baiknya besok ya!" // <- Bahasa lisan
+      "Sip, lanjutkan hal baiknya besok ya!"
     ],
     "netral": [
       "Ingat, hari netral adalah kesempatan untuk istirahat dan mengisi ulang energi.",
@@ -78,23 +78,23 @@
       "Jangan terlalu keras pada diri sendiri. Kamu sudah melakukan yang terbaik hari ini.",
       "Semoga besok pagi membawa harapan dan ketenangan baru untukmu.",
       "Satu langkah kecil untuk hari esok yang lebih baik sudah cukup.",
-      "Semoga cepat membaik ya situasinya." // <- Bahasa lisan
+      "Semoga cepat membaik ya situasinya."
     ]
   },
-  "encouragement": [ // Tetap ada, tapi mungkin akan diskip kadang-kadang
+  "encouragement": [
     "Ingatlah untuk selalu baik pada dirimu sendiri.",
     "Proses refleksi ini adalah langkah positif lho.",
     "Kamu melakukan pekerjaan yang baik dengan merenungkan harimu.",
     "Setiap hari adalah kesempatan belajar.",
     "Kamu keren sudah meluangkan waktu untuk ini."
   ],
-  "humor": [ // Kategori Baru
+  "humor": [
     "Psst, jangan lupa kedip!",
     "Kalau layar mulai buram, mungkin bukan mata, tapi layarnya yang kotor? 😜",
     "Ingat, kopi bukan air putih utama ya~",
     "Jangan sampai lupa cara duduk setelah seharian coding."
   ],
-  "tipsRingan": [ // Kategori Baru
+  "tipsRingan": [
     "Jangan lupa minum air putih cukup hari ini ya.",
     "Sedikit peregangan bisa bantu badan lebih rileks lho.",
     "Istirahat mata sejenak tiap jam itu bagus.",
@@ -102,4 +102,3 @@
     "Coba deh atur napas pelan-pelan sebentar."
   ]
 }
-
