@@ -40,3 +40,34 @@ Cocok untuk siapa saja yang ingin memulai kebiasaan refleksi harian dengan cara 
 
 ## Struktur File 📁
 
+
+/
+├── index.html          # Halaman utama
+├── styles.css          # Styling CSS
+├── main.js             # Logika utama JavaScript
+├── feedback_data.json  # Bank kalimat feedback AI
+├── manifest.json       # Konfigurasi PWA
+├── service-worker.js   # Logika PWA & Offline Cache
+├── illustrations/      # Folder berisi file SVG ilustrasi lokal
+│   ├── ilustrasi-baik.svg
+│   ├── ilustrasi-netral.svg
+│   ├── ilustrasi-buruk.svg
+│   └── ilustrasi-default.svg
+├── icons/              # Folder ikon PWA
+│   ├── logo192.png
+│   └── logo512.png
+└── README.md           # File ini
+
+## Menjalankan Secara Lokal (Opsional)
+
+1.  Clone repositori ini.
+2.  Buka file `index.html` langsung di browser Anda.
+
+## Atribusi 🙏
+
+* Ilustrasi dari [Storyset](https://storyset.com) (atau sebutkan sumber lain jika Anda menggunakan yang berbeda). *Jangan lupa sertakan link ini jika ilustrasi Anda memerlukannya.*
+* Font dari [Google Fonts](https://fonts.google.com/).
+
+## Author
+
+Dibuat oleh Fawwaz Dzaky Amrulloh Bersama AI
