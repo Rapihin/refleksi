@@ -238,7 +238,7 @@ function displayFeedback(feedback, reflectionData) {
 function shareReflection(data, feedback) {
     const { mood, activities, distractions, pride } = data;
     const moodText = mood.charAt(0).toUpperCase() + mood.slice(1);
-    const shareText = `Refleksi Harian Saya:\n--------------------\nMood: ${moodText}\nAktivitas: ${activities || '-'}\nGangguan: ${distractions || '-'}\nKebanggaan: ${pride || '-'}\nFeedback AI: ${feedback || '-'}\n--------------------\nDicatat via Aplikasi Refleksi Diri (${new Date().toLocaleDateString('id-ID')})`;
+    const shareText = `Refleksi Harian Saya:\n--------------------\nMood: ${moodText}\nAktivitas: ${activities || '-'}\nGangguan: ${distractions || '-'}\nKebanggaan: ${pride || '-'}\nFeedback AI: ${feedback || '-'}\n--------------------\nDicatat via "Refleksi Diri Harian" (${new Date().toLocaleDateString('id-ID')})`;
     if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(shareText).then(() => { showNotification("Refleksi disalin ke clipboard! 👍"); playClickSound(); }).catch(err => { console.warn("Gagal menyalin:", err); showNotification("Gagal menyalin.", true); });
     } else { console.warn("Clipboard API tidak tersedia."); showNotification("Fitur salin butuh HTTPS.", true); }
