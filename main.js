@@ -1,3 +1,5 @@
+// main.js
+
 // --- Strict Mode & Polyfills (Optional but good practice) ---
 'use strict';
 
@@ -68,11 +70,11 @@ const pridePlaceholders = ["Pencapaian kecil pun berarti!", "Apa momen yang memb
 const prideLabels = ["Apa satu hal kecil (atau besar!) yang membuatmu bangga hari ini?", "Pencapaian terbaikmu hari ini:", "Momen positif yang patut diapresiasi:", "Satu hal yang kamu syukuri atau banggakan:", "Highlight kebanggaan hari ini:"];
 
 // --- Ilustrasi SVG URLs (Point 5) ---
-// Menggunakan URL dari unDraw yang stabil (cek lisensi unDraw)
+// URL untuk mood 'buruk' sudah diganti
 const illustrationUrls = {
     baik: 'https://undraw.co/illustrations/celebration-re-kc9k.svg', // Celebration
     netral: 'https://undraw.co/illustrations/meditation-re-gll0.svg', // Meditation
-    buruk: 'https://undraw.co/illustrations/feeling-blue-4b7q.svg', // Feeling Blue / Down
+    buruk: 'https://undraw.co/illustrations/thoughts-re-3ysu.svg', // <-- URL SUDAH DIGANTI ke "Thoughts"
     default: 'https://undraw.co/illustrations/thought-process-re-om58.svg' // Placeholder/Thinking
 };
 
@@ -206,7 +208,7 @@ function displayFeedback(feedback, reflectionData) {
     // 1. Buat Mood Visualizer
     const moodDiv = document.createElement('div');
     moodDiv.classList.add('mood-visualizer');
-    const moodEmojis = { baik: '😊', netral: '🙂', buruk: '😟' };
+    const moodEmojis = { baik: '😊', netral: '🙂', buruk: '🤔' }; // Ganti emoji buruk jadi netral/thinking
     moodDiv.textContent = moodEmojis[reflectionData.mood] || '🤔';
     feedbackContainer.appendChild(moodDiv);
 
@@ -256,7 +258,7 @@ Gangguan: ${distractions || '-'}
 Kebanggaan: ${pride || '-'}
 Feedback AI: ${feedback || '-'}
 --------------------
-Dicatat via Aplikasi Refleksi Diri`;
+Dicatat via Aplikasi Refleksi Diri (${new Date().toLocaleDateString('id-ID')})`; // Tambah tanggal
 
     // Coba copy ke clipboard
     if (navigator.clipboard && window.isSecureContext) { // Clipboard API needs secure context (HTTPS or localhost)
@@ -266,24 +268,12 @@ Dicatat via Aplikasi Refleksi Diri`;
         }).catch(err => {
             console.warn("Gagal menyalin ke clipboard:", err);
             showNotification("Gagal menyalin. Coba lagi.", true); // Tampilkan pesan error
-            // Fallback: buka mailto link jika clipboard gagal
-            // createMailtoLink(shareText);
         });
     } else {
-        // Fallback untuk HTTP atau browser lama (kurang ideal)
         console.warn("Clipboard API tidak tersedia. Gunakan HTTPS.");
         showNotification("Fitur salin butuh HTTPS.", true);
-        // Fallback: mailto link
-        // createMailtoLink(shareText);
     }
 }
-
-// // Helper untuk fallback mailto (jika diperlukan)
-// function createMailtoLink(body) {
-//     const subject = encodeURIComponent("Refleksi Harian Saya");
-//     const bodyEncoded = encodeURIComponent(body);
-//     window.location.href = `mailto:?subject=${subject}&body=${bodyEncoded}`;
-// }
 
 // --- Fungsi Tampilkan Notifikasi (Point 4) ---
 let notificationTimeout;
@@ -308,6 +298,10 @@ function updateMoodIllustration(mood) {
             moodIllustration.alt = `Ilustrasi mood ${mood}`;
             moodIllustration.style.opacity = '0.9'; // Fade in new
         }, 200); // Wait for fade out
+    } else if (moodIllustration.style.opacity === '0') {
+         // Jika src sama tapi tersembunyi (misal kembali dari mood buruk), tampilkan lagi
+         // (Ini tidak relevan jika tidak ada kondisi hide di fungsi ini)
+         moodIllustration.style.opacity = '0.9';
     }
 }
 
@@ -358,11 +352,11 @@ function updateHistoryList(reflection, prepend = false, delay = 0) {
     const formattedDate = reflectionDate.toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' });
     const formattedTime = reflectionDate.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
 
-    const moodEmojis = { baik: '😊', netral: '🙂', buruk: '😟' };
+    const moodEmojis = { baik: '😊', netral: '🙂', buruk: '🤔' }; // Ganti emoji buruk jadi netral/thinking
     const moodEmoji = moodEmojis[reflection.mood] || '🤔';
     const moodText = reflection.mood.charAt(0).toUpperCase() + reflection.mood.slice(1);
 
-    // Sanitasi sederhana (opsional, tapi bagus untuk mencegah XSS jika menampilkan input user)
+    // Sanitasi sederhana
     const sanitize = (str) => {
         const temp = document.createElement('div');
         temp.textContent = str;
@@ -429,12 +423,6 @@ form.addEventListener('submit', function(event) {
          loadingIndicator.style.display = 'none';
          submitButton.disabled = false;
          submitButton.innerHTML = 'Lihat Feedback ✨'; // Kembalikan teks asli
-
-         // Optional: Reset form after submission?
-         // form.reset();
-         // formSteps.forEach(step => step.classList.remove('visible'));
-         // showNextStep(0); // Re-animate form
-         // activitiesInput.focus(); // Re-focus
 
     }, 700); // Sedikit lebih cepat
 });
