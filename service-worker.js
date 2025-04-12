@@ -1,18 +1,18 @@
-// service-worker.js (Dengan SVG Lokal di Cache)
+// service-worker.js (Tambahkan feedback_data.json)
 
-// Ganti ke versi baru setiap ada perubahan signifikan pada file yang dicache
-const CACHE_NAME = 'refleksi-diri-cache-v1.4';
+// Ganti ke versi baru, misal:
+const CACHE_NAME = 'refleksi-diri-cache-v1.5';
 
-// Daftar file inti dan ilustrasi lokal yang akan dicache
 const urlsToCache = [
   './', // Root/index.html
   './index.html',
   './styles.css',
   './main.js',
   './manifest.json',
+  './feedback_data.json', // <-- TAMBAHKAN INI
   './icons/logo192.png',
   './icons/logo512.png',
-  // Tambahkan path ke SVG lokal Anda (sesuaikan nama file!)
+  // Path ke SVG lokal Anda (sesuaikan nama file!)
   './illustrations/ilustrasi-baik.svg',
   './illustrations/ilustrasi-netral.svg',
   './illustrations/ilustrasi-buruk.svg',
