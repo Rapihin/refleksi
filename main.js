@@ -1,10 +1,9 @@
-// main.js (Lengkap dengan Fetch JSON Feedback & Logika AI Asli)
+// main.js (Lengkap dengan Fetch JSON Feedback & Logika AI yang Disempurnakan)
 
 // --- Strict Mode ---
 'use strict';
 
 // --- Seleksi Elemen DOM ---
-// (Tidak berubah dari sebelumnya)
 const form = document.getElementById('reflection-form');
 const formSteps = Array.from(form.querySelectorAll('.form-step'));
 const activitiesInput = document.getElementById('activities');
@@ -24,19 +23,49 @@ const body = document.body;
 let feedbackBank = null; // Akan diisi dari JSON
 
 // --- Web Audio API Setup ---
-// (Tidak berubah dari sebelumnya)
-let audioCtx; function getAudioContext() { if (!audioCtx) { try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { console.warn("Web Audio API is not supported."); } } return audioCtx; } function playSound(type = 'sine', frequency = 440, duration = 0.05, volume = 0.05) { const ctx = getAudioContext(); if (!ctx) return; try { const o = ctx.createOscillator(); const g = ctx.createGain(); o.type = type; o.frequency.setValueAtTime(frequency, ctx.currentTime); g.gain.setValueAtTime(volume, ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration * 0.9); o.connect(g); g.connect(ctx.destination); o.start(ctx.currentTime); o.stop(ctx.currentTime + duration); } catch (e) { console.error("Error playing sound:", e); } } const playClickSound = () => playSound('triangle', 300, 0.05, 0.08); const playSuccessSound = () => playSound('sine', 600, 0.15, 0.06);
+let audioCtx;
+function getAudioContext() {
+    if (!audioCtx) {
+        try {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        } catch (e) { console.warn("Web Audio API is not supported."); }
+    }
+    return audioCtx;
+}
+function playSound(type = 'sine', frequency = 440, duration = 0.05, volume = 0.05) {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    try {
+        const o = ctx.createOscillator(); const g = ctx.createGain();
+        o.type = type; o.frequency.setValueAtTime(frequency, ctx.currentTime);
+        g.gain.setValueAtTime(volume, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration * 0.9);
+        o.connect(g); g.connect(ctx.destination);
+        o.start(ctx.currentTime); o.stop(ctx.currentTime + duration);
+    } catch (e) { console.error("Error playing sound:", e); }
+}
+const playClickSound = () => playSound('triangle', 300, 0.05, 0.08);
+const playSuccessSound = () => playSound('sine', 600, 0.15, 0.06);
 
 // --- Variasi Konten Dinamis (Placeholder/Labels) ---
-// (Tidak berubah dari sebelumnya)
-const activityPlaceholders = ["Ceritakan singkat kegiatan utamamu...", "Apa saja momen penting hari ini?", "Tuliskan beberapa hal yang mengisi harimu...", "Bagaimana kamu menghabiskan waktumu hari ini?", "Aktivitas apa yang paling menyita energimu?"]; const activityLabels = ["Apa saja yang kamu lakukan hari ini?", "Bagaimana harimu berjalan? Ceritakan aktivitasmu:", "Ringkasan kegiatan hari ini:", "Yuk, ceritakan apa saja yang terjadi hari ini:", "Aktivitas penting hari ini:"]; const distractionPlaceholders = ["Apakah ada tantangan atau hambatan?", "Hal apa yang membuatmu sedikit 'off'?", "Tuliskan jika ada gangguan yang muncul...", "Adakah sesuatu yang tidak berjalan sesuai rencana?", "Jika ada, apa yang mengusik pikiranmu?"]; const distractionLabels = ["Adakah hal yang mengganggu fokus atau harimu?", "Apa saja tantangan yang kamu hadapi hari ini?", "Apakah ada distraksi yang muncul?", "Hal yang kurang menyenangkan hari ini (jika ada):", "Gangguan atau hambatan hari ini?"]; const pridePlaceholders = ["Pencapaian kecil pun berarti!", "Apa momen yang membuatmu tersenyum bangga?", "Satu hal baik yang kamu lakukan/rasakan...", "Bisa berupa hal sederhana, lho!", "Apa highlight positif hari ini?"]; const prideLabels = ["Apa satu hal kecil (atau besar!) yang membuatmu bangga hari ini?", "Pencapaian terbaikmu hari ini:", "Momen positif yang patut diapresiasi:", "Satu hal yang kamu syukuri atau banggakan:", "Highlight kebanggaan hari ini:"];
+const activityPlaceholders = ["Ceritakan singkat kegiatan utamamu...", "Apa saja momen penting hari ini?", "Tuliskan beberapa hal yang mengisi harimu...", "Bagaimana kamu menghabiskan waktumu hari ini?", "Aktivitas apa yang paling menyita energimu?"];
+const activityLabels = ["Apa saja yang kamu lakukan hari ini?", "Bagaimana harimu berjalan? Ceritakan aktivitasmu:", "Ringkasan kegiatan hari ini:", "Yuk, ceritakan apa saja yang terjadi hari ini:", "Aktivitas penting hari ini:"];
+const distractionPlaceholders = ["Apakah ada tantangan atau hambatan?", "Hal apa yang membuatmu sedikit 'off'?", "Tuliskan jika ada gangguan yang muncul...", "Adakah sesuatu yang tidak berjalan sesuai rencana?", "Jika ada, apa yang mengusik pikiranmu?"];
+const distractionLabels = ["Adakah hal yang mengganggu fokus atau harimu?", "Apa saja tantangan yang kamu hadapi hari ini?", "Apakah ada distraksi yang muncul?", "Hal yang kurang menyenangkan hari ini (jika ada):", "Gangguan atau hambatan hari ini?"];
+const pridePlaceholders = ["Pencapaian kecil pun berarti!", "Apa momen yang membuatmu tersenyum bangga?", "Satu hal baik yang kamu lakukan/rasakan...", "Bisa berupa hal sederhana, lho!", "Apa highlight positif hari ini?"];
+const prideLabels = ["Apa satu hal kecil (atau besar!) yang membuatmu bangga hari ini?", "Pencapaian terbaikmu hari ini:", "Momen positif yang patut diapresiasi:", "Satu hal yang kamu syukuri atau banggakan:", "Highlight kebanggaan hari ini:"];
 
 // --- Ilustrasi SVG URLs (Menggunakan Path Lokal) ---
-// (Tidak berubah dari sebelumnya)
-const illustrationUrls = { baik: './illustrations/ilustrasi-baik.svg', netral: './illustrations/ilustrasi-netral.svg', buruk: './illustrations/ilustrasi-buruk.svg', default: './illustrations/ilustrasi-default.svg' };
+// PASTIKAN NAMA FILE INI SAMA DENGAN FILE SVG DI FOLDER /illustrations/
+const illustrationUrls = {
+    baik: './illustrations/ilustrasi-baik.svg',
+    netral: './illustrations/ilustrasi-netral.svg',
+    buruk: './illustrations/ilustrasi-buruk.svg',   // atau ilustrasi-berpikir.svg, dll.
+    default: './illustrations/ilustrasi-default.svg'
+};
 
 // --- Fungsi Utilitas ---
-const getRandomElement = (arr) => arr[Math.floor(Math.random() * arr.length)];
+const getRandomElement = (arr) => arr ? arr[Math.floor(Math.random() * arr.length)] : ""; // Tambah cek null/undefined
 const sanitize = (str) => { const temp = document.createElement('div'); temp.textContent = str; return temp.innerHTML; };
 
 // --- Fungsi Baru: Memuat Data Feedback dari JSON ---
@@ -52,18 +81,14 @@ async function loadFeedbackData() {
         submitButton.textContent = 'Lihat Feedback ✨'; // Set teks tombol awal
     } catch (error) {
         console.error("Could not load feedback data:", error);
-        // Beri tahu pengguna atau handle error (misal: tombol tetap disable)
         submitButton.textContent = 'Gagal memuat data';
-        // Mungkin tampilkan pesan error di UI
     }
 }
 
 // --- Fungsi Inisialisasi ---
 function initializeApp() {
-    // Nonaktifkan tombol submit di awal sampai data JSON dimuat
     submitButton.disabled = true;
     submitButton.textContent = 'Memuat data...';
-
     activitiesInput.placeholder = getRandomElement(activityPlaceholders);
     document.getElementById('label-activities').textContent = getRandomElement(activityLabels);
     document.getElementById('distractions').placeholder = getRandomElement(distractionPlaceholders);
@@ -76,22 +101,20 @@ function initializeApp() {
     activitiesInput.focus();
     if (yearSpan) { yearSpan.textContent = new Date().getFullYear(); }
     updateMoodIllustration('default');
-
-    // Panggil fungsi untuk memuat data JSON
     loadFeedbackData();
 }
 
 // --- Logika Tema ---
-// (Tidak berubah dari sebelumnya)
-function setupTheme() { const savedTheme = localStorage.getItem('theme'); const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches; setTheme(savedTheme || (prefersDark ? 'dark' : 'light')); } function setTheme(theme) { body.classList.remove('dark-mode', 'light-mode'); body.classList.add(theme + '-mode'); localStorage.setItem('theme', theme); updateToggleButtonAriaLabel(); } function toggleTheme() { const isDarkMode = body.classList.contains('dark-mode'); setTheme(isDarkMode ? 'light' : 'dark'); if (!audioCtx) getAudioContext(); } function updateToggleButtonAriaLabel() { const isDarkMode = body.classList.contains('dark-mode'); themeToggleButton.setAttribute('aria-label', `Ganti ke Mode ${isDarkMode ? 'Terang' : 'Gelap'}`); }
+function setupTheme() { const savedTheme = localStorage.getItem('theme'); const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches; setTheme(savedTheme || (prefersDark ? 'dark' : 'light')); }
+function setTheme(theme) { body.classList.remove('dark-mode', 'light-mode'); body.classList.add(theme + '-mode'); localStorage.setItem('theme', theme); updateToggleButtonAriaLabel(); }
+function toggleTheme() { const isDarkMode = body.classList.contains('dark-mode'); setTheme(isDarkMode ? 'light' : 'dark'); if (!audioCtx) getAudioContext(); }
+function updateToggleButtonAriaLabel() { const isDarkMode = body.classList.contains('dark-mode'); themeToggleButton.setAttribute('aria-label', `Ganti ke Mode ${isDarkMode ? 'Terang' : 'Gelap'}`); }
 
 // --- Logika Form Dinamis ---
-// (Tidak berubah dari sebelumnya)
 let stepTimeouts = []; function showNextStep(index) { stepTimeouts.forEach(clearTimeout); stepTimeouts = []; for (let i = index; i < formSteps.length; i++) { const timeoutId = setTimeout(() => formSteps[i]?.classList.add('visible'), (i - index) * 120); stepTimeouts.push(timeoutId); } }
 
-// --- AI Feedback Generator (Menggunakan feedbackBank dari JSON) ---
+// --- AI Feedback Generator (Menggunakan feedbackBank & Logika yang Disempurnakan) ---
 function generateFeedback(data) {
-    // Pastikan data feedback sudah dimuat
     if (!feedbackBank) {
         console.error("Feedback data not loaded yet!");
         return "Maaf, data feedback belum siap. Coba lagi nanti.";
@@ -99,84 +122,124 @@ function generateFeedback(data) {
 
     const { mood, activities, distractions, pride } = data;
 
-    // Fungsi helper untuk mengganti placeholder
     const fillPlaceholder = (template, placeholder, value) => {
-        // Potong value jika terlalu panjang untuk dimasukkan ke kalimat
-        const maxLength = 35;
+        const maxLength = 30;
         const truncatedValue = value.length > maxLength ? value.substring(0, maxLength) + '...' : value;
-        return template.replace(`{${placeholder}}`, sanitize(truncatedValue)); // Sanitasi input sebelum dimasukkan
+        return template.replace(new RegExp(`{${placeholder}}`, 'g'), sanitize(truncatedValue));
     };
 
-    let feedbackText = "";
+    let feedbackParts = [];
 
-    // Opening
+    // 1. Opening
     if (feedbackBank.openings?.[mood]) {
-        feedbackText += getRandomElement(feedbackBank.openings[mood]) + " ";
+        feedbackParts.push(getRandomElement(feedbackBank.openings[mood]));
     }
 
-    // Activity Comment
-    if (feedbackBank.activityComments?.length) {
-         // Logika tambahan bisa ditambahkan di sini jika ingin komentar berbeda
-         // berdasarkan panjang 'activities'
-         feedbackText += getRandomElement(feedbackBank.activityComments) + " ";
+    // 2. Activity Comment (80% Chance)
+    if (Math.random() < 0.8 && feedbackBank.activityComments?.length) {
+        feedbackParts.push(getRandomElement(feedbackBank.activityComments));
     }
 
-    // Distraction Comment
-    if (distractions && distractions.trim() !== "" && feedbackBank.distractionComments?.withDistraction?.length) {
-         let comment = getRandomElement(feedbackBank.distractionComments.withDistraction);
-         feedbackText += fillPlaceholder(comment, 'distractions', distractions) + " ";
-    } else if (feedbackBank.distractionComments?.noDistraction?.length) {
-         feedbackText += getRandomElement(feedbackBank.distractionComments.noDistraction) + " ";
+    // 3. Distraction Comment (Conditional & 60% Chance if exists)
+    if (distractions && distractions.trim() !== "") {
+        if (Math.random() < 0.6 && feedbackBank.distractionComments?.withDistraction?.length) {
+            let comment = getRandomElement(feedbackBank.distractionComments.withDistraction);
+            feedbackParts.push(fillPlaceholder(comment, 'distractions', distractions));
+        }
+    } else {
+        // Hanya tambahkan komentar 'noDistraction' kadang-kadang (50% chance)
+        if (Math.random() < 0.5 && feedbackBank.distractionComments?.noDistraction?.length) {
+             feedbackParts.push(getRandomElement(feedbackBank.distractionComments.noDistraction));
+        }
     }
 
-    // Pride Comment
+    // 4. Pride Comment (Selalu ada)
     if (pride && pride.trim() !== "" && feedbackBank.prideComments?.length) {
         let comment = getRandomElement(feedbackBank.prideComments);
-        feedbackText += fillPlaceholder(comment, 'pride', pride) + " ";
+        feedbackParts.push(fillPlaceholder(comment, 'pride', pride));
     }
 
-    // Closing
+    // 5. Closing
     if (feedbackBank.closings?.[mood]) {
-        feedbackText += getRandomElement(feedbackBank.closings[mood]);
+        feedbackParts.push(getRandomElement(feedbackBank.closings[mood]));
     }
 
-    // Encouragement (random)
-    if (feedbackBank.encouragement?.length && Math.random() > 0.5) {
-        feedbackText += " " + getRandomElement(feedbackBank.encouragement);
+    // 6. Encouragement (60% Chance)
+    if (feedbackBank.encouragement?.length && Math.random() < 0.6) {
+        feedbackParts.push(getRandomElement(feedbackBank.encouragement));
     }
 
-    return feedbackText.replace(/\s+/g, ' ').trim();
+    // 7. Humor atau Tips Ringan (25% Chance)
+    if (Math.random() < 0.25) {
+        const categoryChoice = Math.random() < 0.5 ? 'humor' : 'tipsRingan';
+        if (feedbackBank[categoryChoice]?.length) {
+            feedbackParts.push(getRandomElement(feedbackBank[categoryChoice]));
+        }
+    }
+
+    return feedbackParts.filter(part => part && part.trim() !== "").join(" ");
 }
-// --- AKHIR DARI FUNGSI generateFeedback YANG BARU ---
 
 // --- Tampilkan Feedback ---
-// (Tidak berubah dari sebelumnya)
-function displayFeedback(feedback, reflectionData) { /* ... */ }
+function displayFeedback(feedback, reflectionData) {
+    feedbackContainer.innerHTML = '';
+    const moodDiv = document.createElement('div'); moodDiv.classList.add('mood-visualizer');
+    const moodEmojis = { baik: '😊', netral: '🙂', buruk: '🤔' };
+    moodDiv.textContent = moodEmojis[reflectionData.mood] || '🤔';
+    feedbackContainer.appendChild(moodDiv);
+
+    const card = document.createElement('div'); card.classList.add('feedback-card');
+    const sentences = feedback.match( /[^\.!\?]+[\.!\?]+/g ) || [feedback];
+    sentences.forEach(sentence => { if (sentence.trim()) { const p = document.createElement('p'); p.textContent = sentence.trim(); card.appendChild(p); } });
+    feedbackContainer.appendChild(card);
+
+    const shareButton = document.createElement('button'); shareButton.id = 'share-button'; shareButton.classList.add('share-button');
+    shareButton.textContent = 'Bagikan Refleksi 📋';
+    shareButton.addEventListener('click', () => shareReflection(reflectionData, feedback));
+    feedbackContainer.appendChild(shareButton);
+
+    playSuccessSound();
+    updateMoodIllustration(reflectionData.mood);
+    setTimeout(() => feedbackContainer.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+}
 
 // --- Fungsi Share Refleksi ---
-// (Tidak berubah dari sebelumnya)
-function shareReflection(data, feedback) { /* ... */ }
+function shareReflection(data, feedback) {
+    const { mood, activities, distractions, pride } = data;
+    const moodText = mood.charAt(0).toUpperCase() + mood.slice(1);
+    const shareText = `Refleksi Harian Saya:\n--------------------\nMood: ${moodText}\nAktivitas: ${activities || '-'}\nGangguan: ${distractions || '-'}\nKebanggaan: ${pride || '-'}\nFeedback AI: ${feedback || '-'}\n--------------------\nDicatat via Aplikasi Refleksi Diri (${new Date().toLocaleDateString('id-ID')})`;
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(shareText).then(() => { showNotification("Refleksi disalin ke clipboard! 👍"); playClickSound(); }).catch(err => { console.warn("Gagal menyalin:", err); showNotification("Gagal menyalin.", true); });
+    } else { console.warn("Clipboard API tidak tersedia."); showNotification("Fitur salin butuh HTTPS.", true); }
+}
 
 // --- Fungsi Tampilkan Notifikasi ---
-// (Tidak berubah dari sebelumnya)
-let notificationTimeout; function showNotification(message, isError = false) { /* ... */ }
+let notificationTimeout; function showNotification(message, isError = false) { clearTimeout(notificationTimeout); notificationElement.textContent = message; notificationElement.style.backgroundColor = isError ? '#dc3545' : ''; notificationElement.classList.add('show'); notificationTimeout = setTimeout(() => notificationElement.classList.remove('show'), 3000); }
 
 // --- Update Ilustrasi SVG ---
-// (Tidak berubah dari sebelumnya)
-function updateMoodIllustration(mood) { /* ... */ }
+function updateMoodIllustration(mood) {
+    const url = illustrationUrls[mood] || illustrationUrls.default;
+    if (moodIllustration.getAttribute('src') !== url) {
+        moodIllustration.style.opacity = '0';
+        setTimeout(() => {
+            moodIllustration.src = url;
+            moodIllustration.alt = `Ilustrasi mood ${mood}`;
+            moodIllustration.style.opacity = '0.9';
+        }, 200);
+    } else if (moodIllustration.style.opacity === '0') {
+         moodIllustration.style.opacity = '0.9';
+    }
+}
 
 // --- Penyimpanan Lokal & Riwayat ---
-// (Tidak berubah dari sebelumnya)
-function saveReflection(data, feedback) { /* ... */ } function loadReflectionHistory() { /* ... */ } function updateHistoryList(reflection, prepend = false, delay = 0) { /* ... */ }
+function saveReflection(data, feedback) { const reflections = JSON.parse(localStorage.getItem('reflections') || '[]'); const newReflection = { date: new Date().toISOString(), ...data, feedback }; reflections.unshift(newReflection); const MAX_HISTORY = 21; if (reflections.length > MAX_HISTORY) reflections.pop(); localStorage.setItem('reflections', JSON.stringify(reflections)); updateHistoryList(newReflection, true); }
+function loadReflectionHistory() { historyList.innerHTML = ''; const reflections = JSON.parse(localStorage.getItem('reflections') || '[]'); historyContainer.style.display = 'block'; if (reflections.length > 0) { reflections.forEach((reflection, index) => updateHistoryList(reflection, false, index * 80)); } else { historyList.innerHTML = '<p class="no-history">Belum ada riwayat refleksi tersimpan. Yuk, mulai!</p>'; } }
+function updateHistoryList(reflection, prepend = false, delay = 0) { const noHistoryMsg = historyList.querySelector('.no-history'); if (noHistoryMsg) historyList.innerHTML = ''; const item = document.createElement('div'); item.classList.add('history-item'); item.style.animationDelay = `${delay}ms`; const reflectionDate = new Date(reflection.date); const formattedDate = reflectionDate.toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' }); const formattedTime = reflectionDate.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }); const moodEmojis = { baik: '😊', netral: '🙂', buruk: '🤔' }; const moodEmoji = moodEmojis[reflection.mood] || '🤔'; const moodText = reflection.mood.charAt(0).toUpperCase() + reflection.mood.slice(1); item.innerHTML = `<h3>${formattedDate} <span>(${formattedTime})</span></h3><p><strong>Mood:</strong> ${moodEmoji} ${sanitize(moodText)}</p><p><strong>Aktivitas:</strong> ${sanitize(reflection.activities)}</p>${reflection.distractions ? `<p><strong>Gangguan:</strong> ${sanitize(reflection.distractions)}</p>` : ''}<p><strong>Kebanggaan:</strong> ${sanitize(reflection.pride)}</p><p class="history-feedback"><strong>Feedback AI:</strong> ${sanitize(feedback)}</p>`; if (prepend) { historyList.insertBefore(item, historyList.firstChild); void item.offsetWidth; item.style.animation = 'none'; setTimeout(() => { item.style.animation = ''; item.style.animationDelay = '0ms'; }, 10); } else { historyList.appendChild(item); } }
 
 // --- Event Listener Form Submit ---
-// (Sedikit diubah untuk cek feedbackBank)
 form.addEventListener('submit', function(event) {
     event.preventDefault();
-    if (!feedbackBank) { // Cek jika data belum siap
-        alert("Data feedback sedang dimuat, mohon tunggu sebentar.");
-        return;
-    }
+    if (!feedbackBank) { alert("Data feedback sedang dimuat, mohon tunggu sebentar."); return; }
     playClickSound();
     const formData = new FormData(form);
     const data = {
@@ -189,7 +252,7 @@ form.addEventListener('submit', function(event) {
     loadingIndicator.style.display = 'block'; submitButton.disabled = true; submitButton.innerHTML = 'Menganalisis... 🤔';
     feedbackContainer.innerHTML = '';
     setTimeout(() => {
-         const generatedFeedback = generateFeedback(data); // Panggil fungsi yg sudah diupdate
+         const generatedFeedback = generateFeedback(data);
          displayFeedback(generatedFeedback, data);
          saveReflection(data, generatedFeedback);
          loadingIndicator.style.display = 'none'; submitButton.disabled = false; submitButton.innerHTML = 'Lihat Feedback ✨';
@@ -197,12 +260,12 @@ form.addEventListener('submit', function(event) {
 });
 
 // --- Event Listener Lain ---
-// (Tidak berubah dari sebelumnya)
-themeToggleButton.addEventListener('click', toggleTheme); moodSelect.addEventListener('change', () => { updateMoodIllustration(moodSelect.value); if (!audioCtx) getAudioContext(); });
+themeToggleButton.addEventListener('click', toggleTheme);
+moodSelect.addEventListener('change', () => { updateMoodIllustration(moodSelect.value); if (!audioCtx) getAudioContext(); });
 
 // --- Inisialisasi Aplikasi ---
 document.addEventListener('DOMContentLoaded', initializeApp);
 
 // --- PWA Service Worker Registration ---
-// (Tidak berubah dari sebelumnya)
 if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('./service-worker.js').then(reg => console.log('✅ SW registration successful:', reg.scope)).catch(err => console.log('❌ SW registration failed:', err)); }); }
+
