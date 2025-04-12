@@ -1,0 +1,85 @@
+{
+  "openings": {
+    "baik": [
+      "Luar biasa! Senang mendengar harimu berjalan baik. 😊",
+      "Wow, terdengar seperti hari yang sangat positif!",
+      "Hebat! Pertahankan energi baik ini. ✨",
+      "Syukurlah, sepertinya harimu menyenangkan.",
+      "Keren! Mood yang baik adalah awal yang bagus."
+    ],
+    "netral": [
+      "Oke, hari yang cukup standar ya. Itu tidak apa-apa. 🙂",
+      "Terima kasih sudah berbagi. Hari netral juga bagian dari proses.",
+      "Netral itu lebih baik daripada buruk, mari kita lihat detailnya.",
+      "Dipahami. Kadang hari memang berjalan datar saja.",
+      "Baiklah, mari kita telaah hari yang biasa ini."
+    ],
+    "buruk": [
+      "Hm, maaf mendengar harimu terasa berat. Tetap semangat ya. 🤗",
+      "Tidak apa-apa merasa seperti ini. Terima kasih sudah jujur.",
+      "Mengirim pelukan virtual untukmu. Semoga besok lebih baik.",
+      "Tarik napas dulu. Hari buruk bukan berarti kamu buruk.",
+      "Sedih mendengarnya. Mari kita lihat apa yang bisa dipelajari."
+    ]
+  },
+  "activityComments": [
+    "Melakukan beberapa kegiatan hari ini menunjukkan usahamu.",
+    "Aktivitasmu hari ini terdengar cukup beragam.",
+    "Terima kasih sudah berbagi tentang kegiatanmu.",
+    "Melihat aktivitasmu, sepertinya kamu cukup sibuk ya.",
+    "Setiap aktivitas, besar atau kecil, adalah bagian dari perjalananmu."
+    // Anda bisa menambahkan variasi berdasarkan panjang 'activities' jika mau,
+    // tapi perlu logika tambahan di JS. Kita buat simpel dulu.
+  ],
+  "distractionComments": {
+    "withDistraction": [
+      "Tentang \"{distractions}\", memang kadang ada saja gangguan tak terduga. Itu manusiawi.",
+      "Menghadapi \"{distractions}\" pasti tidak mudah. Kamu sudah berusaha.",
+      "Gangguan seperti \"{distractions}\" bisa jadi pengingat untuk lebih fleksibel atau sabar. Ambil hikmahnya ya.",
+      "Wajar jika \"{distractions}\" mengganggu. Yang penting bagaimana kamu meresponnya ke depan.",
+      "Tidak apa-apa jika \"{distractions}\" membuat harimu kurang optimal. Besok coba lagi."
+    ],
+    "noDistraction": [
+      "Senang mengetahui tidak ada gangguan berarti hari ini.",
+      "Syukurlah harimu berjalan relatif lancar.",
+      "Fokus yang baik tanpa banyak distraksi itu bagus!"
+    ]
+  },
+  "prideComments": [
+    "Dan yang terpenting, kamu bangga dengan \"{pride}\"! Itu pencapaian hebat! 🌟",
+    "Fokus pada \"{pride}\" ya! Itu adalah bukti kekuatan dan progresmu. Teruslah bangga!",
+    "Ingatlah rasa bangga saat mencapai \"{pride}\". Simpan energi positif ini!",
+    "\"{pride}\" adalah highlight yang bagus! Jangan lupakan momen ini.",
+    "Selamat atas \"{pride}\"! Sekecil apapun, itu layak dirayakan. 🎉"
+  ],
+  "closings": {
+    "baik": [
+      "Semoga energi positif ini bisa kamu bawa ke hari esok!",
+      "Terus lakukan hal-hal yang membuatmu merasa baik. Kamu hebat!",
+      "Hari yang baik adalah berkah. Nikmati dan syukuri.",
+      "Pertahankan momentum positif ini!",
+      "Semoga besok harimu secerah hari ini!"
+    ],
+    "netral": [
+      "Ingat, hari netral adalah kesempatan untuk istirahat dan mengisi ulang energi.",
+      "Semoga besok ada sedikit percikan semangat baru untukmu.",
+      "Tidak setiap hari harus luar biasa. Cukup adalah baik.",
+      "Fokus pada hal kecil yang bisa membuat besok sedikit lebih baik.",
+      "Terima kasih sudah refleksi. Istirahat yang cukup malam ini. 🌙"
+    ],
+    "buruk": [
+      "Ingat, badai pasti berlalu. Kamu lebih kuat dari yang kamu kira.",
+      "Fokus pada istirahat malam ini. Besok adalah lembaran baru.",
+      "Jangan terlalu keras pada diri sendiri. Kamu sudah melakukan yang terbaik hari ini.",
+      "Semoga besok pagi membawa harapan dan ketenangan baru untukmu.",
+      "Satu langkah kecil untuk hari esok yang lebih baik sudah cukup."
+    ]
+  },
+  "encouragement": [
+    "Ingatlah untuk selalu baik pada dirimu sendiri.",
+    "Proses refleksi ini adalah langkah positif lho.",
+    "Kamu melakukan pekerjaan yang baik dengan merenungkan harimu.",
+    "Setiap hari adalah kesempatan belajar.",
+    "Kamu keren sudah meluangkan waktu untuk ini."
+  ]
+}
