@@ -1,18 +1,19 @@
-// service-worker.js (Tambahkan feedback_data.json)
+// service-worker.js (Dengan feedback_data.json & SVG Lokal di Cache)
 
-// Ganti ke versi baru, misal:
-const CACHE_NAME = 'refleksi-diri-cache-v1.5';
+// Ganti ke versi baru setiap ada perubahan signifikan pada file yang dicache
+const CACHE_NAME = 'refleksi-diri-cache-v1.6'; // <-- Versi terbaru
 
+// Daftar file inti dan aset lokal yang akan dicache
 const urlsToCache = [
   './', // Root/index.html
   './index.html',
   './styles.css',
-  './main.js',
+  './main.js', // File JS utama
   './manifest.json',
-  './feedback_data.json', // <-- TAMBAHKAN INI
-  './icons/logo192.png',
-  './icons/logo512.png',
-  // Path ke SVG lokal Anda (sesuaikan nama file!)
+  './feedback_data.json', // File data feedback
+  './icons/logo192.png', // Ikon PWA
+  './icons/logo512.png', // Ikon PWA
+  // Path ke SVG lokal Anda (sesuaikan nama file jika berbeda!)
   './illustrations/ilustrasi-baik.svg',
   './illustrations/ilustrasi-netral.svg',
   './illustrations/ilustrasi-buruk.svg',
@@ -26,6 +27,7 @@ self.addEventListener('install', event => {
     caches.open(CACHE_NAME)
       .then(cache => {
         console.log('[SW] Caching core assets:', urlsToCache);
+        // AddAll akan gagal jika salah satu file tidak ditemukan
         return cache.addAll(urlsToCache);
       })
       .then(() => {
@@ -34,6 +36,8 @@ self.addEventListener('install', event => {
       })
       .catch(error => {
         console.error('[SW] Installation failed:', error);
+        // Pertimbangkan untuk tidak skipWaiting jika instalasi gagal total
+        // agar SW lama tetap aktif jika ada.
       })
   );
 });
@@ -65,47 +69,62 @@ self.addEventListener('fetch', event => {
     return;
   }
 
+  // Khusus untuk navigasi halaman (HTML), coba Network first, lalu Cache
+  // Ini memastikan pengguna selalu mendapat HTML terbaru jika online
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          // Jika sukses, simpan ke cache
+          if (response.ok) {
+            const responseClone = response.clone();
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(event.request, responseClone);
+            });
+          }
+          return response;
+        })
+        .catch(async () => {
+          // Jika network gagal, coba ambil dari cache
+          const cachedResponse = await caches.match(event.request);
+          // Jika ada di cache, kembalikan. Jika tidak, fallback ke index.html cache
+          return cachedResponse || caches.match('./index.html');
+        })
+    );
+    return; // Hentikan eksekusi lebih lanjut untuk navigasi
+  }
+
+  // Untuk aset lain (CSS, JS, Gambar, JSON), gunakan Cache-First
   event.respondWith(
     caches.match(event.request)
       .then(cachedResponse => {
         // Cache hit - return response
         if (cachedResponse) {
-          // console.log('[SW] Serving from cache:', event.request.url);
           return cachedResponse;
         }
 
         // Not in cache - fetch from network
-        // console.log('[SW] Fetching from network:', event.request.url);
         return fetch(event.request).then(
           networkResponse => {
-            // Periksa jika response valid (penting!)
-            if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-               // Jangan cache response yang tidak valid atau dari origin berbeda (kecuali memang diizinkan/diperlukan)
-              if (!event.request.url.startsWith(self.location.origin)){
-                 // console.log('[SW] Not caching opaque/cross-origin response:', event.request.url);
-                 return networkResponse;
-              }
+            // Periksa jika response valid (khususnya untuk file lokal)
+            if (!networkResponse || networkResponse.status !== 200 || (networkResponse.type !== 'basic' && !urlsToCache.includes(event.request.url.replace(self.location.origin, '.')))) {
+              // Jangan cache jika tidak valid atau bukan aset yg diharapkan (misal dr CDN lain)
+              return networkResponse;
             }
 
-            // Clone response karena akan digunakan oleh cache dan browser
             const responseToCache = networkResponse.clone();
-
             caches.open(CACHE_NAME)
               .then(cache => {
-                // console.log('[SW] Caching new resource:', event.request.url);
                 cache.put(event.request, responseToCache);
               });
-
             return networkResponse;
           }
         ).catch(error => {
-          console.warn('[SW] Fetch failed; returning offline fallback maybe?', event.request.url, error);
-          // Di sini Anda bisa menambahkan fallback jika fetch gagal total
-          // Contoh: return caches.match('./offline.html');
-          // Atau kembalikan response error sederhana agar tidak crash
-          return new Response('Network error or resource not found', {
-            status: 404,
-            headers: { 'Content-Type': 'text/plain' }
+          console.warn('[SW] Fetch failed:', event.request.url, error);
+          // Kembalikan response error dasar jika fetch gagal total
+          return new Response(`Network error: ${error.message}`, {
+            status: 408, // Request Timeout atau 500 Internal Server Error
+            headers: { 'Content-Type': 'text/plain' },
           });
         });
       })
