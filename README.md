@@ -4,7 +4,7 @@
 
 Aplikasi web sederhana untuk membantu Anda mencatat refleksi harian, mengenali pola mood, dan merayakan pencapaian kecil setiap hari. Dibuat dengan HTML, CSS, dan JavaScript vanilla, tanpa framework eksternal.
 
-![Screenshot Aplikasi Refleksi Diri](image.jpg)
+![Screenshot Aplikasi Refleksi Diri](Image.jpg)
 
 ## Deskripsi
 
