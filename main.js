@@ -1,4 +1,4 @@
-// main.js
+// main.js (Lengkap dengan URL Storyset)
 
 // --- Strict Mode & Polyfills (Optional but good practice) ---
 'use strict';
@@ -69,13 +69,12 @@ const distractionLabels = ["Adakah hal yang mengganggu fokus atau harimu?", "Apa
 const pridePlaceholders = ["Pencapaian kecil pun berarti!", "Apa momen yang membuatmu tersenyum bangga?", "Satu hal baik yang kamu lakukan/rasakan...", "Bisa berupa hal sederhana, lho!", "Apa highlight positif hari ini?"];
 const prideLabels = ["Apa satu hal kecil (atau besar!) yang membuatmu bangga hari ini?", "Pencapaian terbaikmu hari ini:", "Momen positif yang patut diapresiasi:", "Satu hal yang kamu syukuri atau banggakan:", "Highlight kebanggaan hari ini:"];
 
-// --- Ilustrasi SVG URLs (Point 5) ---
-// URL untuk mood 'buruk' sudah diganti
+// --- Ilustrasi SVG URLs (Diganti ke Storyset) ---
 const illustrationUrls = {
-    baik: 'https://undraw.co/illustrations/celebration-re-kc9k.svg', // Celebration
-    netral: 'https://undraw.co/illustrations/meditation-re-gll0.svg', // Meditation
-    buruk: 'https://undraw.co/illustrations/thoughts-re-3ysu.svg', // <-- URL SUDAH DIGANTI ke "Thoughts"
-    default: 'https://undraw.co/illustrations/thought-process-re-om58.svg' // Placeholder/Thinking
+    baik: 'https://stories.freepik.com/storage/11593/people-celebrating-pana-2878.svg', // People celebrating by Storyset
+    netral: 'https://stories.freepik.com/storage/44187/meditating-cuate-8398.svg', // Meditating by Storyset
+    buruk: 'https://stories.freepik.com/storage/11593/thought-process-pana-2949.svg', // Thought process by Storyset (Pengganti mood buruk)
+    default: 'https://stories.freepik.com/storage/18368/questions-cuate-4666.svg' // Questions by Storyset (Untuk default awal)
 };
 
 // --- Fungsi Utilitas ---
@@ -295,12 +294,12 @@ function updateMoodIllustration(mood) {
         moodIllustration.style.opacity = '0'; // Fade out old
         setTimeout(() => {
             moodIllustration.src = url;
-            moodIllustration.alt = `Ilustrasi mood ${mood}`;
+            // Update alt text based on the new source if needed, or keep generic
+            moodIllustration.alt = `Ilustrasi mood ${mood} (by Storyset)`;
             moodIllustration.style.opacity = '0.9'; // Fade in new
         }, 200); // Wait for fade out
     } else if (moodIllustration.style.opacity === '0') {
-         // Jika src sama tapi tersembunyi (misal kembali dari mood buruk), tampilkan lagi
-         // (Ini tidak relevan jika tidak ada kondisi hide di fungsi ini)
+         // Jika src sama tapi tersembunyi
          moodIllustration.style.opacity = '0.9';
     }
 }
