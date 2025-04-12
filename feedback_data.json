@@ -5,7 +5,9 @@
       "Wow, terdengar seperti hari yang sangat positif!",
       "Hebat! Pertahankan energi baik ini. ✨",
       "Syukurlah, sepertinya harimu menyenangkan.",
-      "Keren! Mood yang baik adalah awal yang bagus."
+      "Keren! Mood yang baik adalah awal yang bagus.",
+      "Wah, keren! Harimu lancar ya.", // <- Bahasa lisan
+      "Asik, semoga hari-harimu terus seperti ini!" // <- Bahasa lisan
     ],
     "netral": [
       "Oke, hari yang cukup standar ya. Itu tidak apa-apa. 🙂",
@@ -19,20 +21,20 @@
       "Tidak apa-apa merasa seperti ini. Terima kasih sudah jujur.",
       "Mengirim pelukan virtual untukmu. Semoga besok lebih baik.",
       "Tarik napas dulu. Hari buruk bukan berarti kamu buruk.",
-      "Sedih mendengarnya. Mari kita lihat apa yang bisa dipelajari."
+      "Sedih mendengarnya. Mari kita lihat apa yang bisa dipelajari.",
+      "Yah, kadang ada aja hal yang ganggu...", // <- Bahasa lisan
+      "Nggak apa-apa kok merasa gini sesekali." // <- Bahasa lisan
     ]
   },
-  "activityComments": [
+  "activityComments": [ // Tetap ada, tapi mungkin akan diskip kadang-kadang oleh JS
     "Melakukan beberapa kegiatan hari ini menunjukkan usahamu.",
     "Aktivitasmu hari ini terdengar cukup beragam.",
     "Terima kasih sudah berbagi tentang kegiatanmu.",
     "Melihat aktivitasmu, sepertinya kamu cukup sibuk ya.",
     "Setiap aktivitas, besar atau kecil, adalah bagian dari perjalananmu."
-    // Anda bisa menambahkan variasi berdasarkan panjang 'activities' jika mau,
-    // tapi perlu logika tambahan di JS. Kita buat simpel dulu.
   ],
   "distractionComments": {
-    "withDistraction": [
+    "withDistraction": [ // Tetap ada, tapi mungkin akan diskip kadang-kadang oleh JS
       "Tentang \"{distractions}\", memang kadang ada saja gangguan tak terduga. Itu manusiawi.",
       "Menghadapi \"{distractions}\" pasti tidak mudah. Kamu sudah berusaha.",
       "Gangguan seperti \"{distractions}\" bisa jadi pengingat untuk lebih fleksibel atau sabar. Ambil hikmahnya ya.",
@@ -45,12 +47,14 @@
       "Fokus yang baik tanpa banyak distraksi itu bagus!"
     ]
   },
-  "prideComments": [
-    "Dan yang terpenting, kamu bangga dengan \"{pride}\"! Itu pencapaian hebat! 🌟",
-    "Fokus pada \"{pride}\" ya! Itu adalah bukti kekuatan dan progresmu. Teruslah bangga!",
-    "Ingatlah rasa bangga saat mencapai \"{pride}\". Simpan energi positif ini!",
-    "\"{pride}\" adalah highlight yang bagus! Jangan lupakan momen ini.",
-    "Selamat atas \"{pride}\"! Sekecil apapun, itu layak dirayakan. 🎉"
+  "prideComments": [ // Menggunakan saran Anda + beberapa variasi
+    "\"{pride}\" — hebat banget!",
+    "Keren! Kamu bangga akan \"{pride}\" ya?",
+    "Salut buat \"{pride}\".",
+    "\"{pride}\" itu layak dirayakan!",
+    "Wah, mantap untuk \"{pride}\"!",
+    "Bagus banget: \"{pride}\".",
+    "Itu bukti kamu terus bertumbuh: \"{pride}\"." // Contoh pemecahan kalimat
   ],
   "closings": {
     "baik": [
@@ -58,7 +62,8 @@
       "Terus lakukan hal-hal yang membuatmu merasa baik. Kamu hebat!",
       "Hari yang baik adalah berkah. Nikmati dan syukuri.",
       "Pertahankan momentum positif ini!",
-      "Semoga besok harimu secerah hari ini!"
+      "Semoga besok harimu secerah hari ini!",
+      "Sip, lanjutkan hal baiknya besok ya!" // <- Bahasa lisan
     ],
     "netral": [
       "Ingat, hari netral adalah kesempatan untuk istirahat dan mengisi ulang energi.",
@@ -72,14 +77,29 @@
       "Fokus pada istirahat malam ini. Besok adalah lembaran baru.",
       "Jangan terlalu keras pada diri sendiri. Kamu sudah melakukan yang terbaik hari ini.",
       "Semoga besok pagi membawa harapan dan ketenangan baru untukmu.",
-      "Satu langkah kecil untuk hari esok yang lebih baik sudah cukup."
+      "Satu langkah kecil untuk hari esok yang lebih baik sudah cukup.",
+      "Semoga cepat membaik ya situasinya." // <- Bahasa lisan
     ]
   },
-  "encouragement": [
+  "encouragement": [ // Tetap ada, tapi mungkin akan diskip kadang-kadang
     "Ingatlah untuk selalu baik pada dirimu sendiri.",
     "Proses refleksi ini adalah langkah positif lho.",
     "Kamu melakukan pekerjaan yang baik dengan merenungkan harimu.",
     "Setiap hari adalah kesempatan belajar.",
     "Kamu keren sudah meluangkan waktu untuk ini."
+  ],
+  "humor": [ // Kategori Baru
+    "Psst, jangan lupa kedip!",
+    "Kalau layar mulai buram, mungkin bukan mata, tapi layarnya yang kotor? 😜",
+    "Ingat, kopi bukan air putih utama ya~",
+    "Jangan sampai lupa cara duduk setelah seharian coding."
+  ],
+  "tipsRingan": [ // Kategori Baru
+    "Jangan lupa minum air putih cukup hari ini ya.",
+    "Sedikit peregangan bisa bantu badan lebih rileks lho.",
+    "Istirahat mata sejenak tiap jam itu bagus.",
+    "Keluar sebentar hirup udara segar bisa bikin mood beda.",
+    "Coba deh atur napas pelan-pelan sebentar."
   ]
 }
+
