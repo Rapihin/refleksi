@@ -1,0 +1,706 @@
+/* --- Reset Dasar & Global --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- Variabel CSS (Minimal-Flat Style) --- */
+:root {
+    /* Fonts */
+    --font-body: 'Inter', sans-serif;
+    --font-heading: 'Space Grotesk', sans-serif;
+
+    /* Light Mode Colors (Flat Minimal) */
+    --color-bg-light: #F8F9FA; /* Off-white */
+    --color-text-light: #343A40; /* Darker grey text */
+    --color-card-bg-light: #FFFFFF; /* White */
+    --color-input-bg-light: #FDFDFD; /* Slightly off white input */
+    --color-input-border-light: #DEE2E6; /* Light grey border */
+    --color-primary-light: #4C6EF5; /* Vibrant Blue */
+    --color-primary-hover-light: #3B5BDB; /* Darker Blue */
+    --color-button-text-light: #FFFFFF;
+    --color-shadow-light: rgba(76, 110, 245, 0.15); /* Blueish subtle shadow */
+    --color-heading-light: #181C20; /* Near black */
+    --color-icon-light: #495057;
+    --color-icon-hover-light: #000000;
+    --color-history-hover-bg-light: #F1F3F5;
+    --color-notification-bg-light: #212529;
+    --color-notification-text-light: #FFFFFF;
+
+
+    /* Dark Mode Colors (Flat Minimal) */
+    --color-bg-dark: #1A1B1E; /* Very dark grey */
+    --color-text-dark: #CED4DA; /* Lighter grey text */
+    --color-card-bg-dark: #25262B; /* Darker card */
+    --color-input-bg-dark: #2C2E33; /* Slightly lighter input */
+    --color-input-border-dark: #495057; /* Grey border */
+    --color-primary-dark: #748FFC; /* Lighter Blue for contrast */
+    --color-primary-hover-dark: #91A7FF; /* Even Lighter Blue */
+    --color-button-text-dark: #1A1B1E; /* Dark text on light button */
+    --color-shadow-dark: rgba(0, 0, 0, 0.3); /* More visible shadow in dark */
+    --color-heading-dark: #F8F9FA; /* White heading */
+    --color-icon-dark: #ADB5BD;
+    --color-icon-hover-dark: #FFFFFF;
+    --color-history-hover-bg-dark: #343A40;
+    --color-notification-bg-dark: #E9ECEF;
+    --color-notification-text-dark: #1A1B1E;
+
+
+    /* Transitions & Others */
+    --transition-speed: 0.3s;
+    --transition-speed-fast: 0.15s;
+    --border-radius: 12px; /* Rounder elements */
+    --border-radius-button: 30px; /* Very round button */
+
+    /* Initialize with light mode values */
+    --color-bg: var(--color-bg-light);
+    --color-text: var(--color-text-light);
+    --color-card-bg: var(--color-card-bg-light);
+    --color-input-bg: var(--color-input-bg-light);
+    --color-input-border: var(--color-input-border-light);
+    --color-primary: var(--color-primary-light);
+    --color-primary-hover: var(--color-primary-hover-light);
+    --color-button-text: var(--color-button-text-light);
+    --color-shadow: var(--color-shadow-light);
+    --color-heading: var(--color-heading-light);
+    --color-icon: var(--color-icon-light);
+    --color-icon-hover: var(--color-icon-hover-light);
+    --color-history-hover-bg: var(--color-history-hover-bg-light);
+    --color-notification-bg: var(--color-notification-bg-light);
+    --color-notification-text: var(--color-notification-text-light);
+}
+
+/* --- Dark Mode Preference & Toggle --- */
+@media (prefers-color-scheme: dark) {
+    :root:not(.light-mode) { /* Apply if system prefers dark AND no override class exists */
+        --color-bg: var(--color-bg-dark);
+        --color-text: var(--color-text-dark);
+        --color-card-bg: var(--color-card-bg-dark);
+        --color-input-bg: var(--color-input-bg-dark);
+        --color-input-border: var(--color-input-border-dark);
+        --color-primary: var(--color-primary-dark);
+        --color-primary-hover: var(--color-primary-hover-dark);
+        --color-button-text: var(--color-button-text-dark);
+        --color-shadow: var(--color-shadow-dark);
+        --color-heading: var(--color-heading-dark);
+        --color-icon: var(--color-icon-dark);
+        --color-icon-hover: var(--color-icon-hover-dark);
+        --color-history-hover-bg: var(--color-history-hover-bg-dark);
+        --color-notification-bg: var(--color-notification-bg-dark);
+        --color-notification-text: var(--color-notification-text-dark);
+    }
+}
+
+body.light-mode {
+    /* Explicit light mode override */
+    --color-bg: var(--color-bg-light);
+    --color-text: var(--color-text-light);
+    --color-card-bg: var(--color-card-bg-light);
+    --color-input-bg: var(--color-input-bg-light);
+    --color-input-border: var(--color-input-border-light);
+    --color-primary: var(--color-primary-light);
+    --color-primary-hover: var(--color-primary-hover-light);
+    --color-button-text: var(--color-button-text-light);
+    --color-shadow: var(--color-shadow-light);
+    --color-heading: var(--color-heading-light);
+    --color-icon: var(--color-icon-light);
+    --color-icon-hover: var(--color-icon-hover-light);
+    --color-history-hover-bg: var(--color-history-hover-bg-light);
+    --color-notification-bg: var(--color-notification-bg-light);
+    --color-notification-text: var(--color-notification-text-light);
+}
+
+body.dark-mode {
+     /* Explicit dark mode override */
+    --color-bg: var(--color-bg-dark);
+    --color-text: var(--color-text-dark);
+    --color-card-bg: var(--color-card-bg-dark);
+    --color-input-bg: var(--color-input-bg-dark);
+    --color-input-border: var(--color-input-border-dark);
+    --color-primary: var(--color-primary-dark);
+    --color-primary-hover: var(--color-primary-hover-dark);
+    --color-button-text: var(--color-button-text-dark);
+    --color-shadow: var(--color-shadow-dark);
+    --color-heading: var(--color-heading-dark);
+    --color-icon: var(--color-icon-dark);
+    --color-icon-hover: var(--color-icon-hover-dark);
+     --color-history-hover-bg: var(--color-history-hover-bg-dark);
+    --color-notification-bg: var(--color-notification-bg-dark);
+    --color-notification-text: var(--color-notification-text-dark);
+}
+
+/* --- Styling Dasar Body --- */
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+/* --- Container Utama --- */
+.container {
+    background-color: var(--color-card-bg);
+    padding: 40px 50px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px -5px var(--color-shadow); /* Softer shadow */
+    max-width: 750px;
+    width: 100%;
+    transition: background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- Header Area (Title + Illustration) --- */
+.header-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    gap: 30px; /* More gap */
+}
+
+.title-area {
+    flex-grow: 1;
+}
+
+.illustration-area {
+    flex-shrink: 0;
+    width: 130px; /* Default size */
+    height: auto;
+    opacity: 0.9;
+    transition: opacity var(--transition-speed) ease;
+}
+ .illustration-area img { /* Target the img tag */
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 110px; /* Limit height */
+    object-fit: contain; /* Ensure SVG scales nicely */
+ }
+
+
+/* --- Heading & Teks --- */
+h1, h2 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-heading);
+    line-height: 1.25; /* Tighter line height for heading */
+    transition: color var(--transition-speed) ease;
+}
+
+h1 {
+    font-size: 2.6rem; /* Slightly adjusted */
+    margin-bottom: 8px; /* Less space */
+    text-align: left;
+}
+
+/* Styling for Subtitle (Point 1) */
+p.subtitle {
+    font-family: var(--font-body); /* Explicitly use Inter */
+    font-size: 1.1rem;
+    color: var(--color-text);
+    opacity: 0.8; /* Slightly faded */
+    text-align: left;
+    margin-bottom: 0;
+    line-height: 1.5;
+    font-weight: 400; /* Regular weight */
+}
+
+
+h2 {
+    font-size: 1.8rem;
+    margin-top: 40px;
+    margin-bottom: 25px;
+    text-align: center;
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 10px;
+    display: inline-block;
+}
+/* Center the H2 */
+.history-title-wrapper { text-align: center; }
+
+
+/* --- Toggle Mode Terang/Gelap --- */
+.theme-toggle {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease;
+    z-index: 10; /* Ensure it's above content */
+}
+.theme-toggle:hover {
+    background-color: rgba(128, 128, 128, 0.1);
+    transform: scale(1.1);
+}
+
+.theme-toggle svg {
+    width: 22px;
+    height: 22px;
+    fill: var(--color-icon);
+    transition: fill var(--transition-speed) ease, transform 0.2s ease;
+}
+
+.theme-toggle:hover svg {
+    fill: var(--color-icon-hover);
+    transform: rotate(15deg); /* Only rotate on hover */
+}
+ /* Hide inactive icon */
+body:not(.dark-mode) .sun-icon { display: none; }
+body:not(.dark-mode) .moon-icon { display: block; }
+body.dark-mode .sun-icon { display: block; }
+body.dark-mode .moon-icon { display: none; }
+
+/* --- Form Refleksi --- */
+#reflection-form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.form-step {
+    opacity: 0;
+    transform: translateY(20px); /* Slightly less movement */
+    transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    margin-bottom: 0;
+}
+
+.form-step.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600; /* Bolder labels */
+    font-size: 1rem; /* Slightly smaller label */
+    color: var(--color-heading);
+}
+
+input[type="text"],
+textarea,
+select {
+    width: 100%;
+    padding: 14px 18px; /* Adjusted padding */
+    border: 1px solid var(--color-input-border);
+    background-color: var(--color-input-bg);
+    color: var(--color-text);
+    border-radius: 10px; /* Slightly less round */
+    font-family: var(--font-body);
+    font-size: 1rem;
+    box-shadow: none; /* No inner shadow */
+    transition: border-color var(--transition-speed) ease, background-color var(--transition-speed) ease, color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 30%, transparent); /* Soft focus ring */
+}
+
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23495057" height="20" viewBox="0 0 24 24" width="20"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    background-size: 18px;
+    padding-right: 50px;
+}
+
+body.dark-mode select {
+     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23ADB5BD" height="20" viewBox="0 0 24 24" width="20"><path d="M7 10l5 5 5-5z"/></svg>');
+}
+
+.form-hint {
+    display: block;
+    text-align: right;
+    font-size: 0.8em;
+    opacity: 0.7;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+
+/* --- Tombol Submit & Share (Modern, Round) --- */
+.submit-wrapper {
+     text-align: center;
+     margin-top: 15px; /* Less margin */
+}
+
+button[type="submit"],
+.share-button { /* Style share button similarly */
+    padding: 14px 35px; /* Adjusted padding */
+    background-color: var(--color-primary);
+    color: var(--color-button-text);
+    border: none;
+    border-radius: var(--border-radius-button);
+    font-family: var(--font-body);
+    font-size: 1rem; /* Slightly smaller */
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease, box-shadow var(--transition-speed-fast) ease;
+    box-shadow: 0 4px 10px -2px var(--color-shadow); /* Subtle shadow */
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    margin-top: 10px; /* Add margin for share button */
+}
+
+/* Ripple Effect (Common for buttons) */
+button[type="submit"]::after,
+.share-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%, -50%);
+    transform-origin: 50% 50%;
+    z-index: -1;
+    transition: transform 0.5s ease-out, opacity 1s ease-out;
+}
+
+body.dark-mode button[type="submit"]::after,
+body.dark-mode .share-button::after {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+
+button[type="submit"]:active::after,
+.share-button:active::after {
+    opacity: 1;
+    transform: scale(40, 40) translate(-50%, -50%); /* Adjust scale factor */
+}
+
+
+button[type="submit"]:hover,
+.share-button:hover {
+    background-color: var(--color-primary-hover);
+    transform: translateY(-2px); /* Subtle lift */
+    box-shadow: 0 6px 15px -3px var(--color-shadow); /* Enhanced shadow */
+}
+
+button[type="submit"]:active,
+.share-button:active {
+    transform: translateY(0px); /* Reset lift */
+    box-shadow: 0 4px 10px -2px var(--color-shadow); /* Back to normal shadow */
+}
+
+button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #6c757d;
+    box-shadow: none;
+    transform: none;
+}
+
+/* --- Feedback Container & Card --- */
+#feedback-container {
+    margin-top: 40px;
+    position: relative; /* For positioning notification */
+    text-align: center; /* Center share button */
+}
+
+.feedback-card {
+    background-color: var(--color-card-bg);
+    padding: 30px 35px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 25px -5px var(--color-shadow);
+    margin-bottom: 25px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUpFadeIn 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    border-left: 4px solid var(--color-primary);
+    transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    text-align: left; /* Align text inside card */
+}
+
+ /* Mood Visualizer */
+.mood-visualizer {
+    text-align: center;
+    margin-bottom: 15px; /* Less space */
+    font-size: 3.5rem; /* Smaller emoji */
+    line-height: 1;
+    opacity: 0;
+    transform: scale(0.5);
+    animation: popIn 0.5s 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; /* Pop animation */
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+
+.feedback-card p {
+    font-size: 1.05rem; /* Slightly smaller feedback text */
+    line-height: 1.7;
+    margin-bottom: 10px;
+}
+
+.feedback-card p:last-child {
+    margin-bottom: 0;
+}
+
+/* Animation Keyframe */
+@keyframes slideUpFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- History Container (Grid Layout) --- */
+#history-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 40px auto 0 auto;
+}
+
+#history-list {
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile: 1 column */
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.history-item {
+    background-color: var(--color-card-bg);
+    padding: 20px 25px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 15px -3px var(--color-shadow);
+    border: 1px solid var(--color-input-border);
+    transition: transform var(--transition-speed-fast) ease,
+                box-shadow var(--transition-speed-fast) ease,
+                background-color var(--transition-speed) ease,
+                border-color var(--transition-speed) ease;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards; /* Fade in items */
+    cursor: pointer; /* Indicate clickable */
+}
+/* Staggered animation for history items */
+/* (Handled by JS delay now, CSS :nth-child removed) */
+
+
+/* Microinteraction Hover/Active (Point 6) */
+.history-item:hover,
+.history-item:active { /* Apply same effect for touch */
+    transform: scale(1.02); /* Scale up */
+    box-shadow: 0 8px 25px -5px var(--color-shadow); /* Enhance shadow */
+    background-color: var(--color-history-hover-bg);
+    z-index: 2; /* Bring forward */
+    position: relative; /* Needed for z-index */
+}
+
+.history-item h3 {
+    font-family: var(--font-heading);
+    font-size: 1.15rem; /* Slightly smaller */
+    margin-bottom: 10px;
+    color: var(--color-heading);
+    font-weight: 600; /* Semi-bold */
+}
+.history-item h3 span {
+    font-size: 0.8em;
+    opacity: 0.7;
+    font-weight: 400; /* Normal weight for time */
+}
+
+.history-item p {
+    font-size: 0.9rem; /* Smaller history text */
+    margin-bottom: 5px;
+    text-align: left;
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+.history-item strong {
+    font-weight: 600;
+    color: var(--color-heading);
+    margin-right: 4px;
+}
+
+.history-feedback {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--color-input-border);
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--color-text);
+    opacity: 0.75;
+}
+
+ @keyframes fadeIn {
+     from { opacity: 0; transform: translateY(10px); }
+     to { opacity: 1; transform: translateY(0); }
+ }
+
+/* Loading Indicator */
+.loading-indicator {
+    text-align: center;
+    margin-top: 15px;
+    font-style: italic;
+    display: none;
+    font-size: 0.95rem;
+    color: var(--color-text);
+    opacity: 0.8;
+}
+
+/* --- Footer Copyright --- */
+.page-footer {
+    width: 100%;
+    max-width: 1100px;
+    margin: 50px auto 20px auto; /* More top margin */
+    text-align: center;
+    padding: 10px 0;
+}
+
+.page-footer p {
+    font-size: 0.85rem;
+    color: var(--color-text);
+    opacity: 0.6; /* Slightly less transparent */
+    margin: 0;
+    transition: opacity var(--transition-speed) ease;
+}
+
+.page-footer p:hover {
+    opacity: 0.9;
+}
+
+/* --- Notification Styling (Point 4) --- */
+.notification {
+    position: fixed; /* Fixed at bottom */
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px); /* Start off-screen */
+    background-color: var(--color-notification-bg);
+    color: var(--color-notification-text);
+    padding: 12px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    font-size: 0.9rem;
+    font-weight: 500;
+    z-index: 1000;
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.215, 0.610, 0.355, 1),
+                opacity 0.4s ease;
+    pointer-events: none; /* Don't block clicks */
+}
+
+.notification.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0); /* Slide in */
+}
+
+
+/* --- Responsiveness --- */
+@media (min-width: 600px) {
+    #history-list {
+        /* Tablet: 2 columns */
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .container {
+        padding: 40px 60px;
+    }
+}
+
+@media (min-width: 992px) {
+    #history-list {
+        /* Desktop: 3 columns */
+        grid-template-columns: repeat(3, 1fr);
+    }
+     .header-area {
+         margin-bottom: 50px;
+     }
+     .illustration-area {
+         width: 150px; /* Larger illustration */
+         max-height: 130px;
+     }
+}
+
+
+@media (max-width: 768px) {
+    body {
+        padding: 30px 15px;
+    }
+    .container {
+        padding: 30px 25px;
+    }
+    h1 {
+        font-size: 2.1rem;
+    }
+    p.subtitle {
+        font-size: 1rem;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+     .header-area {
+         flex-direction: column-reverse; /* Illustration above title */
+         align-items: center;
+         text-align: center;
+         margin-bottom: 30px;
+         gap: 15px; /* Less gap */
+     }
+     .illustration-area {
+         width: 100px; /* Smaller on mobile */
+         margin-bottom: 10px; /* Space below illustration */
+         max-height: 90px;
+     }
+     h1, p.subtitle { /* Center title and subtitle */
+         text-align: center;
+     }
+     .theme-toggle {
+        top: 15px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    p.subtitle {
+        font-size: 0.9rem;
+    }
+     label, input[type="text"], textarea, select, button[type="submit"], .share-button {
+         font-size: 0.9rem; /* Smaller fonts on small screens */
+     }
+     input[type="text"], textarea, select { padding: 12px 15px; }
+     button[type="submit"], .share-button { padding: 12px 25px; }
+     select { padding-right: 40px; background-position: right 12px center; }
+     .container { padding: 25px 20px; }
+     .notification {
+         width: calc(100% - 40px); /* Full width notification on small screens */
+         bottom: 10px;
+         border-radius: 6px;
+         text-align: center;
+     }
+}
