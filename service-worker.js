@@ -11,7 +11,6 @@ const urlsToCache = [
   './main.js', // File JS utama
   './manifest.json',
   './feedback_data.json', // File data feedback
-  './icons/logo192.png', // Ikon PWA
   './icons/logo512.png', // Ikon PWA
   // Path ke SVG lokal Anda (sesuaikan nama file jika berbeda!)
   './illustrations/ilustrasi-baik.svg',
